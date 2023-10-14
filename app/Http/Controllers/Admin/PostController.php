@@ -20,34 +20,101 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class PostController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $posts = Post::with(['team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ', 'media'])->get();
+        if ($request->ajax()) {
+            $query = Post::with(['team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ'])->select(sprintf('%s.*', (new Post)->table));
+            $table = Datatables::of($query);
 
-        $teams = Team::get();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
-        $senders = Sender::get();
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'post_show';
+                $editGate      = 'post_edit';
+                $deleteGate    = 'post_delete';
+                $crudRoutePart = 'posts';
 
-        $postforms = Postform::get();
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
 
-        $inputs = Input::get();
+            $table->addColumn('team_nazov', function ($row) {
+                return $row->team ? $row->team->nazov : '';
+            });
 
-        $statuses = Status::get();
+            $table->editColumn('post_nr', function ($row) {
+                return $row->post_nr ? $row->post_nr : '';
+            });
+            $table->addColumn('sender_sender', function ($row) {
+                return $row->sender ? $row->sender->sender : '';
+            });
 
-        $queries = Query::get();
+            $table->addColumn('post_form_postform_sk', function ($row) {
+                return $row->post_form ? $row->post_form->postform_sk : '';
+            });
 
+            $table->editColumn('post_form.postform_sk', function ($row) {
+                return $row->post_form ? (is_string($row->post_form) ? $row->post_form : $row->post_form->postform_sk) : '';
+            });
+            $table->editColumn('envelope', function ($row) {
+                return $row->envelope ? '<a href="' . $row->envelope->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
+            $table->editColumn('scan', function ($row) {
+                return $row->scan ? '<a href="' . $row->scan->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
+            $table->editColumn('title', function ($row) {
+                return $row->title ? $row->title : '';
+            });
+            $table->editColumn('file_short_text', function ($row) {
+                return $row->file_short_text ? $row->file_short_text : '';
+            });
+            $table->editColumn('accounting', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->accounting ? 'checked' : null) . '>';
+            });
+            $table->addColumn('status_status', function ($row) {
+                return $row->status ? $row->status->status : '';
+            });
+
+            $table->editColumn('send_email', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->send_email ? 'checked' : null) . '>';
+            });
+            $table->addColumn('dok_typ_dok_typ_sk', function ($row) {
+                return $row->dok_typ ? $row->dok_typ->dok_typ_sk : '';
+            });
+
+            $table->editColumn('payment_info', function ($row) {
+                return $row->payment_info ? $row->payment_info : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team', 'sender', 'post_form', 'envelope', 'scan', 'accounting', 'status', 'send_email', 'dok_typ']);
+
+            return $table->make(true);
+        }
+
+        $teams      = Team::get();
+        $senders    = Sender::get();
+        $postforms  = Postform::get();
+        $inputs     = Input::get();
+        $statuses   = Status::get();
+        $queries    = Query::get();
         $processeds = Processed::get();
+        $dok_typs   = DokTyp::get();
 
-        $dok_typs = DokTyp::get();
-
-        return view('admin.posts.index', compact('dok_typs', 'inputs', 'postforms', 'posts', 'processeds', 'queries', 'senders', 'statuses', 'teams'));
+        return view('admin.posts.index', compact('teams', 'senders', 'postforms', 'inputs', 'statuses', 'queries', 'processeds', 'dok_typs'));
     }
 
     public function create()
