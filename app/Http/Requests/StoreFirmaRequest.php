@@ -31,6 +31,10 @@ class StoreFirmaRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'id_pohoda' => [
+                'string',
+                'nullable',
+            ],
             'address' => [
                 'string',
                 'nullable',

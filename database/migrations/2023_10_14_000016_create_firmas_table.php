@@ -13,6 +13,7 @@ class CreateFirmasTable extends Migration
             $table->string('nazov')->nullable();
             $table->boolean('activ')->default(0)->nullable();
             $table->string('idmmc')->nullable();
+            $table->string('id_pohoda')->nullable();
             $table->string('address')->nullable();
             $table->string('short_address')->nullable();
             $table->string('ico')->nullable();

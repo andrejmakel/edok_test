@@ -78,6 +78,14 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.firma.fields.idmmc_helper') }}</span>
                         </div>
+                        <div class="form-group {{ $errors->has('id_pohoda') ? 'has-error' : '' }}">
+                            <label for="id_pohoda">{{ trans('cruds.firma.fields.id_pohoda') }}</label>
+                            <input class="form-control" type="text" name="id_pohoda" id="id_pohoda" value="{{ old('id_pohoda', '') }}">
+                            @if($errors->has('id_pohoda'))
+                                <span class="help-block" role="alert">{{ $errors->first('id_pohoda') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.firma.fields.id_pohoda_helper') }}</span>
+                        </div>
                         <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
                             <label for="address">{{ trans('cruds.firma.fields.address') }}</label>
                             <input class="form-control" type="text" name="address" id="address" value="{{ old('address', '') }}">
