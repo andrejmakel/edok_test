@@ -32,6 +32,7 @@ class Firma extends Model implements HasMedia
         'activ',
         'team_id',
         'idmmc',
+        'id_pohoda',
         'address',
         'short_address',
         'ico',

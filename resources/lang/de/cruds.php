@@ -359,6 +359,8 @@ return [
             'zrsr_helper'          => ' ',
             'bank'                 => 'Bank',
             'bank_helper'          => ' ',
+            'id_pohoda'            => 'ID Pohoda',
+            'id_pohoda_helper'     => ' ',
         ],
     ],
     'post' => [
