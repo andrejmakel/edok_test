@@ -48,6 +48,9 @@
                                         {{ trans('cruds.firma.fields.idmmc') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.firma.fields.id_pohoda') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.firma.fields.address') }}
                                     </th>
                                     <th>
@@ -171,6 +174,9 @@
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                                     </td>
                                     <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
                                         <select class="search">
                                             <option value>{{ trans('global.all') }}</option>
                                             @foreach($e_schrankas as $key => $item)
@@ -255,6 +261,9 @@
                                         </td>
                                         <td>
                                             {{ $firma->idmmc ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $firma->id_pohoda ?? '' }}
                                         </td>
                                         <td>
                                             {{ $firma->address ?? '' }}

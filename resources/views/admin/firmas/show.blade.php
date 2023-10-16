@@ -77,6 +77,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.firma.fields.id_pohoda') }}
+                                    </th>
+                                    <td>
+                                        {{ $firma->id_pohoda }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.firma.fields.address') }}
                                     </th>
                                     <td>

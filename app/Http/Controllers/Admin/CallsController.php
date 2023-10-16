@@ -15,24 +15,75 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class CallsController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('call_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $calls = Call::with(['team', 'call_typ', 'zadal'])->get();
+        if ($request->ajax()) {
+            $query = Call::with(['team', 'call_typ', 'zadal'])->select(sprintf('%s.*', (new Call)->table));
+            $table = Datatables::of($query);
 
-        $teams = Team::get();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'call_show';
+                $editGate      = 'call_edit';
+                $deleteGate    = 'call_delete';
+                $crudRoutePart = 'calls';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('duration', function ($row) {
+                return $row->duration ? $row->duration : '';
+            });
+            $table->addColumn('team_nazov', function ($row) {
+                return $row->team ? $row->team->nazov : '';
+            });
+
+            $table->addColumn('call_typ_call_typ', function ($row) {
+                return $row->call_typ ? $row->call_typ->call_typ : '';
+            });
+
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('company', function ($row) {
+                return $row->company ? $row->company : '';
+            });
+            $table->editColumn('call_nr', function ($row) {
+                return $row->call_nr ? $row->call_nr : '';
+            });
+            $table->editColumn('short_notice', function ($row) {
+                return $row->short_notice ? $row->short_notice : '';
+            });
+            $table->addColumn('zadal_zadal', function ($row) {
+                return $row->zadal ? $row->zadal->zadal : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team', 'call_typ', 'zadal']);
+
+            return $table->make(true);
+        }
+
+        $teams     = Team::get();
         $call_typs = CallTyp::get();
+        $inputs    = Input::get();
 
-        $inputs = Input::get();
-
-        return view('admin.calls.index', compact('call_typs', 'calls', 'inputs', 'teams'));
+        return view('admin.calls.index', compact('teams', 'call_typs', 'inputs'));
     }
 
     public function create()

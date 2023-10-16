@@ -16,26 +16,98 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class EPostController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('e_post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ePosts = EPost::with(['team', 'sender', 'zadal', 'dok_typ', 'media'])->get();
+        if ($request->ajax()) {
+            $query = EPost::with(['team', 'sender', 'zadal', 'dok_typ'])->select(sprintf('%s.*', (new EPost)->table));
+            $table = Datatables::of($query);
 
-        $teams = Team::get();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
-        $senders = Sender::get();
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'e_post_show';
+                $editGate      = 'e_post_edit';
+                $deleteGate    = 'e_post_delete';
+                $crudRoutePart = 'e-posts';
 
-        $inputs = Input::get();
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
 
+            $table->addColumn('team_nazov', function ($row) {
+                return $row->team ? $row->team->nazov : '';
+            });
+
+            $table->addColumn('sender_sender', function ($row) {
+                return $row->sender ? $row->sender->sender : '';
+            });
+
+            $table->editColumn('scan', function ($row) {
+                return $row->scan ? '<a href="' . $row->scan->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
+            $table->editColumn('annex', function ($row) {
+                if (! $row->annex) {
+                    return '';
+                }
+                $links = [];
+                foreach ($row->annex as $media) {
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>';
+                }
+
+                return implode(', ', $links);
+            });
+            $table->editColumn('file_short_text', function ($row) {
+                return $row->file_short_text ? $row->file_short_text : '';
+            });
+            $table->addColumn('zadal_zadal', function ($row) {
+                return $row->zadal ? $row->zadal->zadal : '';
+            });
+
+            $table->editColumn('accounting', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->accounting ? 'checked' : null) . '>';
+            });
+            $table->editColumn('title', function ($row) {
+                return $row->title ? $row->title : '';
+            });
+            $table->addColumn('dok_typ_dok_typ_sk', function ($row) {
+                return $row->dok_typ ? $row->dok_typ->dok_typ_sk : '';
+            });
+
+            $table->editColumn('payment_info', function ($row) {
+                return $row->payment_info ? $row->payment_info : '';
+            });
+            $table->editColumn('amount', function ($row) {
+                return $row->amount ? $row->amount : '';
+            });
+            $table->editColumn('for_recipient', function ($row) {
+                return $row->for_recipient ? $row->for_recipient : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team', 'sender', 'scan', 'annex', 'zadal', 'accounting', 'dok_typ']);
+
+            return $table->make(true);
+        }
+
+        $teams    = Team::get();
+        $senders  = Sender::get();
+        $inputs   = Input::get();
         $dok_typs = DokTyp::get();
 
-        return view('admin.ePosts.index', compact('dok_typs', 'ePosts', 'inputs', 'senders', 'teams'));
+        return view('admin.ePosts.index', compact('teams', 'senders', 'inputs', 'dok_typs'));
     }
 
     public function create()
