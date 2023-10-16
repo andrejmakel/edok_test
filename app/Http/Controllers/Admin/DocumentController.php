@@ -15,24 +15,86 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class DocumentController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $documents = Document::with(['team', 'dok_typ', 'dok_kat', 'media'])->get();
+        if ($request->ajax()) {
+            $query = Document::with(['team', 'dok_typ', 'dok_kat'])->select(sprintf('%s.*', (new Document)->table));
+            $table = Datatables::of($query);
 
-        $teams = Team::get();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'document_show';
+                $editGate      = 'document_edit';
+                $deleteGate    = 'document_delete';
+                $crudRoutePart = 'documents';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+
+            $table->addColumn('team_nazov', function ($row) {
+                return $row->team ? $row->team->nazov : '';
+            });
+
+            $table->editColumn('title', function ($row) {
+                return $row->title ? $row->title : '';
+            });
+            $table->editColumn('document_code', function ($row) {
+                return $row->document_code ? $row->document_code : '';
+            });
+            $table->addColumn('dok_typ_dok_typ_sk', function ($row) {
+                return $row->dok_typ ? $row->dok_typ->dok_typ_sk : '';
+            });
+
+            $table->addColumn('dok_kat_dok_kat', function ($row) {
+                return $row->dok_kat ? $row->dok_kat->dok_kat : '';
+            });
+
+            $table->editColumn('document', function ($row) {
+                return $row->document ? '<a href="' . $row->document->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
+            $table->editColumn('file_short_text', function ($row) {
+                return $row->file_short_text ? $row->file_short_text : '';
+            });
+            $table->editColumn('payment_info', function ($row) {
+                return $row->payment_info ? $row->payment_info : '';
+            });
+            $table->editColumn('accounting', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->accounting ? 'checked' : null) . '>';
+            });
+            $table->editColumn('amount', function ($row) {
+                return $row->amount ? $row->amount : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team', 'dok_typ', 'dok_kat', 'document', 'accounting']);
+
+            return $table->make(true);
+        }
+
+        $teams    = Team::get();
         $dok_typs = DokTyp::get();
-
         $dok_kats = DokKat::get();
 
-        return view('admin.documents.index', compact('documents', 'dok_kats', 'dok_typs', 'teams'));
+        return view('admin.documents.index', compact('teams', 'dok_typs', 'dok_kats'));
     }
 
     public function create()
