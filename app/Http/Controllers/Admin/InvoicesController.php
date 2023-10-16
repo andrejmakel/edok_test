@@ -16,24 +16,87 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class InvoicesController extends Controller
 {
     use MediaUploadingTrait, CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('invoice_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $invoices = Invoice::with(['team', 'nasa', 'typ', 'media'])->get();
+        if ($request->ajax()) {
+            $query = Invoice::with(['team', 'nasa', 'typ'])->select(sprintf('%s.*', (new Invoice)->table));
+            $table = Datatables::of($query);
 
-        $teams = Team::get();
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
 
-        $nasas = Nasa::get();
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'invoice_show';
+                $editGate      = 'invoice_edit';
+                $deleteGate    = 'invoice_delete';
+                $crudRoutePart = 'invoices';
 
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->addColumn('team_nazov', function ($row) {
+                return $row->team ? $row->team->nazov : '';
+            });
+
+            $table->editColumn('visible', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->visible ? 'checked' : null) . '>';
+            });
+
+            $table->addColumn('nasa_name', function ($row) {
+                return $row->nasa ? $row->nasa->name : '';
+            });
+
+            $table->editColumn('nasa.konto', function ($row) {
+                return $row->nasa ? (is_string($row->nasa) ? $row->nasa : $row->nasa->konto) : '';
+            });
+            $table->editColumn('nasa.iban', function ($row) {
+                return $row->nasa ? (is_string($row->nasa) ? $row->nasa : $row->nasa->iban) : '';
+            });
+            $table->editColumn('nasa.swift', function ($row) {
+                return $row->nasa ? (is_string($row->nasa) ? $row->nasa : $row->nasa->swift) : '';
+            });
+            $table->addColumn('typ_shortcut', function ($row) {
+                return $row->typ ? $row->typ->shortcut : '';
+            });
+
+            $table->editColumn('number', function ($row) {
+                return $row->number ? $row->number : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('amount', function ($row) {
+                return $row->amount ? $row->amount : '';
+            });
+
+            $table->editColumn('file', function ($row) {
+                return $row->file ? '<a href="' . $row->file->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team', 'visible', 'nasa', 'typ', 'file']);
+
+            return $table->make(true);
+        }
+
+        $teams        = Team::get();
+        $nasas        = Nasa::get();
         $invoice_typs = InvoiceTyp::get();
 
-        return view('admin.invoices.index', compact('invoice_typs', 'invoices', 'nasas', 'teams'));
+        return view('admin.invoices.index', compact('teams', 'nasas', 'invoice_typs'));
     }
 
     public function create()

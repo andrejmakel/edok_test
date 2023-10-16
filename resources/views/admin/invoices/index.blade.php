@@ -21,212 +21,125 @@
                     {{ trans('cruds.invoice.title_singular') }} {{ trans('global.list') }}
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class=" table table-bordered table-striped table-hover datatable datatable-Invoice">
-                            <thead>
-                                <tr>
-                                    <th width="10">
+                    <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Invoice">
+                        <thead>
+                            <tr>
+                                <th width="10">
 
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.team') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.visible') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.date') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.nasa') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.nasa.fields.konto') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.nasa.fields.iban') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.nasa.fields.swift') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.typ') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.number') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.amount') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.payment_term') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.file') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.pay_date') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.accounting_date') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.invoice.fields.send_email') }}
-                                    </th>
-                                    <th>
-                                        &nbsp;
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <select class="search">
-                                            <option value>{{ trans('global.all') }}</option>
-                                            @foreach($teams as $key => $item)
-                                                <option value="{{ $item->nazov }}">{{ $item->nazov }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <select class="search">
-                                            <option value>{{ trans('global.all') }}</option>
-                                            @foreach($nasas as $key => $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <select class="search">
-                                            <option value>{{ trans('global.all') }}</option>
-                                            @foreach($invoice_typs as $key => $item)
-                                                <option value="{{ $item->shortcut }}">{{ $item->shortcut }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
-                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($invoices as $key => $invoice)
-                                    <tr data-entry-id="{{ $invoice->id }}">
-                                        <td>
-
-                                        </td>
-                                        <td>
-                                            {{ $invoice->team->nazov ?? '' }}
-                                        </td>
-                                        <td>
-                                            <span style="display:none">{{ $invoice->visible ?? '' }}</span>
-                                            <input type="checkbox" disabled="disabled" {{ $invoice->visible ? 'checked' : '' }}>
-                                        </td>
-                                        <td>
-                                            {{ $invoice->date ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->nasa->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->nasa->konto ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->nasa->iban ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->nasa->swift ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->typ->shortcut ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->number ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->amount ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->payment_term ?? '' }}
-                                        </td>
-                                        <td>
-                                            @if($invoice->file)
-                                                <a href="{{ $invoice->file->getUrl() }}" target="_blank">
-                                                    {{ trans('global.view_file') }}
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $invoice->pay_date ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->accounting_date ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $invoice->send_email ?? '' }}
-                                        </td>
-                                        <td>
-                                            @can('invoice_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.invoices.show', $invoice->id) }}">
-                                                    {{ trans('global.view') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('invoice_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.invoices.edit', $invoice->id) }}">
-                                                    {{ trans('global.edit') }}
-                                                </a>
-                                            @endcan
-
-                                            @can('invoice_delete')
-                                                <form action="{{ route('admin.invoices.destroy', $invoice->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            @endcan
-
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.team') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.visible') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.date') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.nasa') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.nasa.fields.konto') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.nasa.fields.iban') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.nasa.fields.swift') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.typ') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.number') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.name') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.amount') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.payment_term') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.file') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.pay_date') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.accounting_date') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.invoice.fields.send_email') }}
+                                </th>
+                                <th>
+                                    &nbsp;
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <select class="search">
+                                        <option value>{{ trans('global.all') }}</option>
+                                        @foreach($teams as $key => $item)
+                                            <option value="{{ $item->nazov }}">{{ $item->nazov }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <select class="search">
+                                        <option value>{{ trans('global.all') }}</option>
+                                        @foreach($nasas as $key => $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <select class="search">
+                                        <option value>{{ trans('global.all') }}</option>
+                                        @foreach($invoice_typs as $key => $item)
+                                            <option value="{{ $item->shortcut }}">{{ $item->shortcut }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                    <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
 
@@ -242,14 +155,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('invoice_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.invoices.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -271,12 +184,38 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.invoices.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'team_nazov', name: 'team.nazov' },
+{ data: 'visible', name: 'visible' },
+{ data: 'date', name: 'date' },
+{ data: 'nasa_name', name: 'nasa.name' },
+{ data: 'nasa.konto', name: 'nasa.konto' },
+{ data: 'nasa.iban', name: 'nasa.iban' },
+{ data: 'nasa.swift', name: 'nasa.swift' },
+{ data: 'typ_shortcut', name: 'typ.shortcut' },
+{ data: 'number', name: 'number' },
+{ data: 'name', name: 'name' },
+{ data: 'amount', name: 'amount' },
+{ data: 'payment_term', name: 'payment_term' },
+{ data: 'file', name: 'file', sortable: false, searchable: false },
+{ data: 'pay_date', name: 'pay_date' },
+{ data: 'accounting_date', name: 'accounting_date' },
+{ data: 'send_email', name: 'send_email' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 3, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-Invoice:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-Invoice').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
@@ -303,7 +242,7 @@ table.on('column-visibility.dt', function(e, settings, column, state) {
           visibleColumnsIndexes.push(colIdx);
       });
   })
-})
+});
 
 </script>
 @endsection

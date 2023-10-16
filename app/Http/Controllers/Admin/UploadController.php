@@ -13,20 +13,75 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class UploadController extends Controller
 {
     use MediaUploadingTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('upload_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $uploads = Upload::with(['team', 'media'])->get();
+        if ($request->ajax()) {
+            $query = Upload::with(['team'])->select(sprintf('%s.*', (new Upload)->table));
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'upload_show';
+                $editGate      = 'upload_edit';
+                $deleteGate    = 'upload_delete';
+                $crudRoutePart = 'uploads';
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+
+            $table->addColumn('team_nazov', function ($row) {
+                return $row->team ? $row->team->nazov : '';
+            });
+
+            $table->editColumn('notice', function ($row) {
+                return $row->notice ? $row->notice : '';
+            });
+            $table->editColumn('upload_file', function ($row) {
+                if (! $row->upload_file) {
+                    return '';
+                }
+                $links = [];
+                foreach ($row->upload_file as $media) {
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>';
+                }
+
+                return implode(', ', $links);
+            });
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+            $table->editColumn('accounting', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->accounting ? 'checked' : null) . '>';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team', 'upload_file', 'accounting']);
+
+            return $table->make(true);
+        }
 
         $teams = Team::get();
 
-        return view('admin.uploads.index', compact('teams', 'uploads'));
+        return view('admin.uploads.index', compact('teams'));
     }
 
     public function create()
