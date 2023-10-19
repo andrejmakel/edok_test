@@ -21,6 +21,9 @@ class Postform extends Model
     protected $fillable = [
         'postform_sk',
         'postform_icon',
+        'title_de',
+        'title_sk',
+        'title_en',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -35,6 +35,15 @@
                                         {{ trans('cruds.status.fields.status_icon') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.status.fields.title_de') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.status.fields.title_sk') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.status.fields.title_en') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -50,6 +59,15 @@
                                         </td>
                                         <td>
                                             {{ $status->status_icon ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $status->title_de ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $status->title_sk ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $status->title_en ?? '' }}
                                         </td>
                                         <td>
                                             @can('status_show')

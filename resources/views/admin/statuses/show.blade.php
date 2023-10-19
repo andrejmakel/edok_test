@@ -41,6 +41,30 @@
                                         {{ $status->status_icon }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.status.fields.title_de') }}
+                                    </th>
+                                    <td>
+                                        {{ $status->title_de }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.status.fields.title_sk') }}
+                                    </th>
+                                    <td>
+                                        {{ $status->title_sk }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.status.fields.title_en') }}
+                                    </th>
+                                    <td>
+                                        {{ $status->title_en }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

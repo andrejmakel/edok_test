@@ -21,6 +21,9 @@ class Status extends Model
     protected $fillable = [
         'status',
         'status_icon',
+        'title_de',
+        'title_sk',
+        'title_en',
         'created_at',
         'updated_at',
         'deleted_at',

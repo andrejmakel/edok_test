@@ -28,6 +28,30 @@
                             @endif
                             <span class="help-block">{{ trans('cruds.status.fields.status_icon_helper') }}</span>
                         </div>
+                        <div class="form-group {{ $errors->has('title_de') ? 'has-error' : '' }}">
+                            <label for="title_de">{{ trans('cruds.status.fields.title_de') }}</label>
+                            <input class="form-control" type="text" name="title_de" id="title_de" value="{{ old('title_de', $status->title_de) }}">
+                            @if($errors->has('title_de'))
+                                <span class="help-block" role="alert">{{ $errors->first('title_de') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.status.fields.title_de_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('title_sk') ? 'has-error' : '' }}">
+                            <label for="title_sk">{{ trans('cruds.status.fields.title_sk') }}</label>
+                            <input class="form-control" type="text" name="title_sk" id="title_sk" value="{{ old('title_sk', $status->title_sk) }}">
+                            @if($errors->has('title_sk'))
+                                <span class="help-block" role="alert">{{ $errors->first('title_sk') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.status.fields.title_sk_helper') }}</span>
+                        </div>
+                        <div class="form-group {{ $errors->has('title_en') ? 'has-error' : '' }}">
+                            <label for="title_en">{{ trans('cruds.status.fields.title_en') }}</label>
+                            <input class="form-control" type="text" name="title_en" id="title_en" value="{{ old('title_en', $status->title_en) }}">
+                            @if($errors->has('title_en'))
+                                <span class="help-block" role="alert">{{ $errors->first('title_en') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.status.fields.title_en_helper') }}</span>
+                        </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
