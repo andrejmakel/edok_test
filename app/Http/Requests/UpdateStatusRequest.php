@@ -25,6 +25,18 @@ class UpdateStatusRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'title_de' => [
+                'string',
+                'nullable',
+            ],
+            'title_sk' => [
+                'string',
+                'nullable',
+            ],
+            'title_en' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }

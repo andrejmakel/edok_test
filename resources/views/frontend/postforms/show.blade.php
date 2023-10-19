@@ -42,6 +42,30 @@
                                         {{ $postform->postform_icon }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.postform.fields.title_de') }}
+                                    </th>
+                                    <td>
+                                        {{ $postform->title_de }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.postform.fields.title_sk') }}
+                                    </th>
+                                    <td>
+                                        {{ $postform->title_sk }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.postform.fields.title_en') }}
+                                    </th>
+                                    <td>
+                                        {{ $postform->title_en }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

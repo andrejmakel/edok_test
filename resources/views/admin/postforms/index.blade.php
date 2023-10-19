@@ -35,6 +35,15 @@
                                         {{ trans('cruds.postform.fields.postform_icon') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.postform.fields.title_de') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.postform.fields.title_sk') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.postform.fields.title_en') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -50,6 +59,15 @@
                                         </td>
                                         <td>
                                             {{ $postform->postform_icon ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $postform->title_de ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $postform->title_sk ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $postform->title_en ?? '' }}
                                         </td>
                                         <td>
                                             @can('postform_show')

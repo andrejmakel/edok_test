@@ -12,6 +12,9 @@ class CreateStatusesTable extends Migration
             $table->bigIncrements('id');
             $table->string('status')->nullable();
             $table->string('status_icon')->nullable();
+            $table->string('title_de')->nullable();
+            $table->string('title_sk')->nullable();
+            $table->string('title_en')->nullable();
             $table->timestamps();
         });
     }
