@@ -781,6 +781,12 @@ return [
             'team_helper'        => ' ',
             'upload_file'        => 'Upload File',
             'upload_file_helper' => ' ',
+            'archive'            => 'Archive',
+            'archive_helper'     => ' ',
+            'closed'             => 'Closed',
+            'closed_helper'      => ' ',
+            'reply'              => 'Reply',
+            'reply_helper'       => ' ',
         ],
     ],
     'bank' => [

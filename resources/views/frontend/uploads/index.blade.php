@@ -26,6 +26,15 @@
                                         {{ trans('cruds.upload.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.upload.fields.accounting') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.upload.fields.archive') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.upload.fields.closed') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.upload.fields.date') }}
                                     </th>
                                     <th>
@@ -41,9 +50,6 @@
                                         {{ trans('cruds.upload.fields.description') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.upload.fields.accounting') }}
-                                    </th>
-                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -52,6 +58,12 @@
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
                                     </td>
                                     <td>
                                     </td>
@@ -73,8 +85,6 @@
                                     </td>
                                     <td>
                                     </td>
-                                    <td>
-                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,6 +92,18 @@
                                     <tr data-entry-id="{{ $upload->id }}">
                                         <td>
                                             {{ $upload->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $upload->accounting ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $upload->accounting ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $upload->archive ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $upload->archive ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $upload->closed ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $upload->closed ? 'checked' : '' }}>
                                         </td>
                                         <td>
                                             {{ $upload->date ?? '' }}
@@ -101,10 +123,6 @@
                                         </td>
                                         <td>
                                             {{ $upload->description ?? '' }}
-                                        </td>
-                                        <td>
-                                            <span style="display:none">{{ $upload->accounting ?? '' }}</span>
-                                            <input type="checkbox" disabled="disabled" {{ $upload->accounting ? 'checked' : '' }}>
                                         </td>
                                         <td>
                                             @can('upload_show')

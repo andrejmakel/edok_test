@@ -28,6 +28,30 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.upload.fields.accounting') }}
+                                    </th>
+                                    <td>
+                                        <input type="checkbox" disabled="disabled" {{ $upload->accounting ? 'checked' : '' }}>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.upload.fields.archive') }}
+                                    </th>
+                                    <td>
+                                        <input type="checkbox" disabled="disabled" {{ $upload->archive ? 'checked' : '' }}>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.upload.fields.closed') }}
+                                    </th>
+                                    <td>
+                                        <input type="checkbox" disabled="disabled" {{ $upload->closed ? 'checked' : '' }}>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.upload.fields.date') }}
                                     </th>
                                     <td>
@@ -72,10 +96,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.upload.fields.accounting') }}
+                                        {{ trans('cruds.upload.fields.reply') }}
                                     </th>
                                     <td>
-                                        <input type="checkbox" disabled="disabled" {{ $upload->accounting ? 'checked' : '' }}>
+                                        {!! $upload->reply !!}
                                     </td>
                                 </tr>
                             </tbody>
