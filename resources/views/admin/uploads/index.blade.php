@@ -27,6 +27,15 @@
                                     {{ trans('cruds.upload.fields.id') }}
                                 </th>
                                 <th>
+                                    {{ trans('cruds.upload.fields.accounting') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.upload.fields.archive') }}
+                                </th>
+                                <th>
+                                    {{ trans('cruds.upload.fields.closed') }}
+                                </th>
+                                <th>
                                     {{ trans('cruds.upload.fields.date') }}
                                 </th>
                                 <th>
@@ -42,9 +51,6 @@
                                     {{ trans('cruds.upload.fields.description') }}
                                 </th>
                                 <th>
-                                    {{ trans('cruds.upload.fields.accounting') }}
-                                </th>
-                                <th>
                                     &nbsp;
                                 </th>
                             </tr>
@@ -53,6 +59,12 @@
                                 </td>
                                 <td>
                                     <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
                                 </td>
                                 <td>
                                 </td>
@@ -71,8 +83,6 @@
                                 </td>
                                 <td>
                                     <input class="search" type="text" placeholder="{{ trans('global.search') }}">
-                                </td>
-                                <td>
                                 </td>
                                 <td>
                                 </td>
@@ -133,12 +143,14 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'accounting', name: 'accounting' },
+{ data: 'archive', name: 'archive' },
+{ data: 'closed', name: 'closed' },
 { data: 'date', name: 'date' },
 { data: 'team_nazov', name: 'team.nazov' },
 { data: 'notice', name: 'notice' },
 { data: 'upload_file', name: 'upload_file', sortable: false, searchable: false },
 { data: 'description', name: 'description' },
-{ data: 'accounting', name: 'accounting' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

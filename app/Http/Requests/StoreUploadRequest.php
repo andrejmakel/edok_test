@@ -18,8 +18,12 @@ class StoreUploadRequest extends FormRequest
     {
         return [
             'date' => [
+                'required',
                 'date_format:' . config('panel.date_format'),
-                'nullable',
+            ],
+            'team_id' => [
+                'required',
+                'integer',
             ],
             'notice' => [
                 'string',

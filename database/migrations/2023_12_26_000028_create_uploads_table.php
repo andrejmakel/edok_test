@@ -10,10 +10,13 @@ class CreateUploadsTable extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date')->nullable();
+            $table->boolean('accounting')->default(0)->nullable();
+            $table->boolean('archive')->default(0)->nullable();
+            $table->boolean('closed')->default(0)->nullable();
+            $table->date('date');
             $table->string('notice')->nullable();
             $table->longText('description')->nullable();
-            $table->boolean('accounting')->default(0)->nullable();
+            $table->longText('reply')->nullable();
             $table->timestamps();
         });
     }

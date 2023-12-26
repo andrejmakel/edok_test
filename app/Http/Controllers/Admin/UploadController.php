@@ -48,6 +48,15 @@ class UploadController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('accounting', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->accounting ? 'checked' : null) . '>';
+            });
+            $table->editColumn('archive', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->archive ? 'checked' : null) . '>';
+            });
+            $table->editColumn('closed', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->closed ? 'checked' : null) . '>';
+            });
 
             $table->addColumn('team_nazov', function ($row) {
                 return $row->team ? $row->team->nazov : '';
@@ -70,11 +79,8 @@ class UploadController extends Controller
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : '';
             });
-            $table->editColumn('accounting', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->accounting ? 'checked' : null) . '>';
-            });
 
-            $table->rawColumns(['actions', 'placeholder', 'team', 'upload_file', 'accounting']);
+            $table->rawColumns(['actions', 'placeholder', 'accounting', 'archive', 'closed', 'team', 'upload_file']);
 
             return $table->make(true);
         }

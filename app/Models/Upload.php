@@ -28,11 +28,14 @@ class Upload extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'accounting',
+        'archive',
+        'closed',
         'date',
         'team_id',
         'notice',
         'description',
-        'accounting',
+        'reply',
         'created_at',
         'updated_at',
         'deleted_at',
