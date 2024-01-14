@@ -109,6 +109,22 @@
                                         {{ $user->remember_token }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.phone') }}
+                                    </th>
+                                    <td>
+                                        {{ $user->phone }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.user.fields.notice') }}
+                                    </th>
+                                    <td>
+                                        {!! $user->notice !!}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

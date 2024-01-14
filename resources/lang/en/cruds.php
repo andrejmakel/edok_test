@@ -73,6 +73,10 @@ return [
             'notifications_helper'     => ' ',
             'lang'                     => 'Lang',
             'lang_helper'              => ' ',
+            'phone'                    => 'Phone',
+            'phone_helper'             => ' ',
+            'notice'                   => 'Notice',
+            'notice_helper'            => ' ',
         ],
     ],
     'property' => [

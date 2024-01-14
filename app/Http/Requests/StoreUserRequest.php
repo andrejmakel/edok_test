@@ -45,6 +45,10 @@ class StoreUserRequest extends FormRequest
             'teams' => [
                 'array',
             ],
+            'phone' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }
