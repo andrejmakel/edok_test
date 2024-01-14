@@ -42,6 +42,10 @@ class UpdateUserRequest extends FormRequest
             'teams' => [
                 'array',
             ],
+            'phone' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }
