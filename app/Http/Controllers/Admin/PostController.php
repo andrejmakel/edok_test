@@ -16,6 +16,7 @@ use App\Models\Query;
 use App\Models\Sender;
 use App\Models\Status;
 use App\Models\Team;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -31,7 +32,7 @@ class PostController extends Controller
         abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Post::with(['team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ'])->select(sprintf('%s.*', (new Post)->table));
+            $query = Post::with(['team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ', 'reads'])->select(sprintf('%s.*', (new Post)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -113,8 +114,9 @@ class PostController extends Controller
         $queries    = Query::get();
         $processeds = Processed::get();
         $dok_typs   = DokTyp::get();
+        $users      = User::get();
 
-        return view('admin.posts.index', compact('teams', 'senders', 'postforms', 'inputs', 'statuses', 'queries', 'processeds', 'dok_typs'));
+        return view('admin.posts.index', compact('teams', 'senders', 'postforms', 'inputs', 'statuses', 'queries', 'processeds', 'dok_typs', 'users'));
     }
 
     public function create()
@@ -137,13 +139,15 @@ class PostController extends Controller
 
         $dok_typs = DokTyp::pluck('dok_typ_sk', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.posts.create', compact('customer_queries', 'dok_typs', 'post_forms', 'processeds', 'senders', 'statuses', 'teams', 'zadals'));
+        $reads = User::pluck('email', 'id');
+
+        return view('admin.posts.create', compact('customer_queries', 'dok_typs', 'post_forms', 'processeds', 'reads', 'senders', 'statuses', 'teams', 'zadals'));
     }
 
     public function store(StorePostRequest $request)
     {
         $post = Post::create($request->all());
-
+        $post->reads()->sync($request->input('reads', []));
         if ($request->input('envelope', false)) {
             $post->addMedia(storage_path('tmp/uploads/' . basename($request->input('envelope'))))->toMediaCollection('envelope');
         }
@@ -179,15 +183,17 @@ class PostController extends Controller
 
         $dok_typs = DokTyp::pluck('dok_typ_sk', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $post->load('team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ');
+        $reads = User::pluck('email', 'id');
 
-        return view('admin.posts.edit', compact('customer_queries', 'dok_typs', 'post', 'post_forms', 'processeds', 'senders', 'statuses', 'teams', 'zadals'));
+        $post->load('team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ', 'reads');
+
+        return view('admin.posts.edit', compact('customer_queries', 'dok_typs', 'post', 'post_forms', 'processeds', 'reads', 'senders', 'statuses', 'teams', 'zadals'));
     }
 
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->all());
-
+        $post->reads()->sync($request->input('reads', []));
         if ($request->input('envelope', false)) {
             if (! $post->envelope || $request->input('envelope') !== $post->envelope->file_name) {
                 if ($post->envelope) {
@@ -217,7 +223,7 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $post->load('team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ');
+        $post->load('team', 'sender', 'post_form', 'zadal', 'status', 'customer_query', 'processed', 'dok_typ', 'reads');
 
         return view('admin.posts.show', compact('post'));
     }

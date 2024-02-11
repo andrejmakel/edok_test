@@ -176,4 +176,9 @@ class Post extends Model implements HasMedia
     {
         $this->attributes['due_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
+
+    public function reads()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -451,6 +451,8 @@ return [
             'due_date_helper'        => ' ',
             'file_short_text'        => 'File Short Text',
             'file_short_text_helper' => ' ',
+            'read'                   => 'Read',
+            'read_helper'            => ' ',
         ],
     ],
     'notice' => [
