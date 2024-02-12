@@ -255,6 +255,24 @@
                             <span class="help-block">{{ trans('cruds.ePost.fields.send_email_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="reads">{{ trans('cruds.ePost.fields.read') }}</label>
+                            <div style="padding-bottom: 4px">
+                                <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                                <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                            </div>
+                            <select class="form-control select2" name="reads[]" id="reads" multiple>
+                                @foreach($reads as $id => $read)
+                                    <option value="{{ $id }}" {{ in_array($id, old('reads', [])) ? 'selected' : '' }}>{{ $read }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('reads'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('reads') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.ePost.fields.read_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-danger" type="submit">
                                 {{ trans('global.save') }}
                             </button>

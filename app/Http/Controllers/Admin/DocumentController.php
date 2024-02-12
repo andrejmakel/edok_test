@@ -11,6 +11,7 @@ use App\Models\Document;
 use App\Models\DokKat;
 use App\Models\DokTyp;
 use App\Models\Team;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -26,7 +27,7 @@ class DocumentController extends Controller
         abort_if(Gate::denies('document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Document::with(['team', 'dok_typ', 'dok_kat'])->select(sprintf('%s.*', (new Document)->table));
+            $query = Document::with(['team', 'dok_typ', 'dok_kat', 'reads'])->select(sprintf('%s.*', (new Document)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -93,8 +94,9 @@ class DocumentController extends Controller
         $teams    = Team::get();
         $dok_typs = DokTyp::get();
         $dok_kats = DokKat::get();
+        $users    = User::get();
 
-        return view('admin.documents.index', compact('teams', 'dok_typs', 'dok_kats'));
+        return view('admin.documents.index', compact('teams', 'dok_typs', 'dok_kats', 'users'));
     }
 
     public function create()
@@ -107,13 +109,15 @@ class DocumentController extends Controller
 
         $dok_kats = DokKat::pluck('dok_kat', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.documents.create', compact('dok_kats', 'dok_typs', 'teams'));
+        $reads = User::pluck('email', 'id');
+
+        return view('admin.documents.create', compact('dok_kats', 'dok_typs', 'reads', 'teams'));
     }
 
     public function store(StoreDocumentRequest $request)
     {
         $document = Document::create($request->all());
-
+        $document->reads()->sync($request->input('reads', []));
         if ($request->input('document', false)) {
             $document->addMedia(storage_path('tmp/uploads/' . basename($request->input('document'))))->toMediaCollection('document');
         }
@@ -135,15 +139,17 @@ class DocumentController extends Controller
 
         $dok_kats = DokKat::pluck('dok_kat', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $document->load('team', 'dok_typ', 'dok_kat');
+        $reads = User::pluck('email', 'id');
 
-        return view('admin.documents.edit', compact('document', 'dok_kats', 'dok_typs', 'teams'));
+        $document->load('team', 'dok_typ', 'dok_kat', 'reads');
+
+        return view('admin.documents.edit', compact('document', 'dok_kats', 'dok_typs', 'reads', 'teams'));
     }
 
     public function update(UpdateDocumentRequest $request, Document $document)
     {
         $document->update($request->all());
-
+        $document->reads()->sync($request->input('reads', []));
         if ($request->input('document', false)) {
             if (! $document->document || $request->input('document') !== $document->document->file_name) {
                 if ($document->document) {
@@ -162,7 +168,7 @@ class DocumentController extends Controller
     {
         abort_if(Gate::denies('document_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $document->load('team', 'dok_typ', 'dok_kat');
+        $document->load('team', 'dok_typ', 'dok_kat', 'reads');
 
         return view('admin.documents.show', compact('document'));
     }

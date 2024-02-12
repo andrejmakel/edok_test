@@ -11,6 +11,7 @@ use App\Models\Call;
 use App\Models\CallTyp;
 use App\Models\Input;
 use App\Models\Team;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -26,7 +27,7 @@ class CallsController extends Controller
         abort_if(Gate::denies('call_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Call::with(['team', 'call_typ', 'zadal'])->select(sprintf('%s.*', (new Call)->table));
+            $query = Call::with(['team', 'call_typ', 'zadal', 'reads'])->select(sprintf('%s.*', (new Call)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -82,8 +83,9 @@ class CallsController extends Controller
         $teams     = Team::get();
         $call_typs = CallTyp::get();
         $inputs    = Input::get();
+        $users     = User::get();
 
-        return view('admin.calls.index', compact('teams', 'call_typs', 'inputs'));
+        return view('admin.calls.index', compact('teams', 'call_typs', 'inputs', 'users'));
     }
 
     public function create()
@@ -96,13 +98,15 @@ class CallsController extends Controller
 
         $zadals = Input::pluck('zadal', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.calls.create', compact('call_typs', 'teams', 'zadals'));
+        $reads = User::pluck('email', 'id');
+
+        return view('admin.calls.create', compact('call_typs', 'reads', 'teams', 'zadals'));
     }
 
     public function store(StoreCallRequest $request)
     {
         $call = Call::create($request->all());
-
+        $call->reads()->sync($request->input('reads', []));
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $call->id]);
         }
@@ -120,14 +124,17 @@ class CallsController extends Controller
 
         $zadals = Input::pluck('zadal', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $call->load('team', 'call_typ', 'zadal');
+        $reads = User::pluck('email', 'id');
 
-        return view('admin.calls.edit', compact('call', 'call_typs', 'teams', 'zadals'));
+        $call->load('team', 'call_typ', 'zadal', 'reads');
+
+        return view('admin.calls.edit', compact('call', 'call_typs', 'reads', 'teams', 'zadals'));
     }
 
     public function update(UpdateCallRequest $request, Call $call)
     {
         $call->update($request->all());
+        $call->reads()->sync($request->input('reads', []));
 
         return redirect()->route('admin.calls.index');
     }
@@ -136,7 +143,7 @@ class CallsController extends Controller
     {
         abort_if(Gate::denies('call_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $call->load('team', 'call_typ', 'zadal');
+        $call->load('team', 'call_typ', 'zadal', 'reads');
 
         return view('admin.calls.show', compact('call'));
     }
