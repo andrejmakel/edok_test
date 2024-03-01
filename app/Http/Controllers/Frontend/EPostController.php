@@ -12,6 +12,7 @@ use App\Models\EPost;
 use App\Models\Input;
 use App\Models\Sender;
 use App\Models\Team;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -25,7 +26,7 @@ class EPostController extends Controller
     {
         abort_if(Gate::denies('e_post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ePosts = EPost::with(['team', 'sender', 'zadal', 'dok_typ', 'media'])->get();
+        $ePosts = EPost::with(['team', 'sender', 'zadal', 'dok_typ', 'reads', 'media'])->get();
 
         $teams = Team::get();
 
@@ -35,7 +36,9 @@ class EPostController extends Controller
 
         $dok_typs = DokTyp::get();
 
-        return view('frontend.ePosts.index', compact('dok_typs', 'ePosts', 'inputs', 'senders', 'teams'));
+        $users = User::get();
+
+        return view('frontend.ePosts.index', compact('dok_typs', 'ePosts', 'inputs', 'senders', 'teams', 'users'));
     }
 
     public function create()
@@ -50,13 +53,15 @@ class EPostController extends Controller
 
         $dok_typs = DokTyp::pluck('dok_typ_sk', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.ePosts.create', compact('dok_typs', 'senders', 'teams', 'zadals'));
+        $reads = User::pluck('email', 'id');
+
+        return view('frontend.ePosts.create', compact('dok_typs', 'reads', 'senders', 'teams', 'zadals'));
     }
 
     public function store(StoreEPostRequest $request)
     {
         $ePost = EPost::create($request->all());
-
+        $ePost->reads()->sync($request->input('reads', []));
         if ($request->input('scan', false)) {
             $ePost->addMedia(storage_path('tmp/uploads/' . basename($request->input('scan'))))->toMediaCollection('scan');
         }
@@ -84,15 +89,17 @@ class EPostController extends Controller
 
         $dok_typs = DokTyp::pluck('dok_typ_sk', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $ePost->load('team', 'sender', 'zadal', 'dok_typ');
+        $reads = User::pluck('email', 'id');
 
-        return view('frontend.ePosts.edit', compact('dok_typs', 'ePost', 'senders', 'teams', 'zadals'));
+        $ePost->load('team', 'sender', 'zadal', 'dok_typ', 'reads');
+
+        return view('frontend.ePosts.edit', compact('dok_typs', 'ePost', 'reads', 'senders', 'teams', 'zadals'));
     }
 
     public function update(UpdateEPostRequest $request, EPost $ePost)
     {
         $ePost->update($request->all());
-
+        $ePost->reads()->sync($request->input('reads', []));
         if ($request->input('scan', false)) {
             if (! $ePost->scan || $request->input('scan') !== $ePost->scan->file_name) {
                 if ($ePost->scan) {
@@ -125,7 +132,7 @@ class EPostController extends Controller
     {
         abort_if(Gate::denies('e_post_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ePost->load('team', 'sender', 'zadal', 'dok_typ');
+        $ePost->load('team', 'sender', 'zadal', 'dok_typ', 'reads');
 
         return view('frontend.ePosts.show', compact('ePost'));
     }

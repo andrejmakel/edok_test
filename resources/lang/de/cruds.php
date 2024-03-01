@@ -525,6 +525,8 @@ return [
             'team_helper'         => ' ',
             'send_email'          => 'Send Email',
             'send_email_helper'   => ' ',
+            'read'                => 'Read',
+            'read_helper'         => ' ',
         ],
     ],
     'invoiceTyp' => [
@@ -761,6 +763,8 @@ return [
             'due_date_helper'        => ' ',
             'accounting'             => 'Accounting',
             'accounting_helper'      => ' ',
+            'read'                   => 'Read',
+            'read_helper'            => ' ',
         ],
     ],
     'upload' => [
@@ -929,6 +933,8 @@ return [
             'file_short_text_helper' => ' ',
             'send_email'             => 'Send Email',
             'send_email_helper'      => ' ',
+            'read'                   => 'Read',
+            'read_helper'            => ' ',
         ],
     ],
     'dokTyp' => [

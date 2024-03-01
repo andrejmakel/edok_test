@@ -12,6 +12,7 @@ use App\Models\EPost;
 use App\Models\Input;
 use App\Models\Sender;
 use App\Models\Team;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -27,7 +28,7 @@ class EPostController extends Controller
         abort_if(Gate::denies('e_post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = EPost::with(['team', 'sender', 'zadal', 'dok_typ'])->select(sprintf('%s.*', (new EPost)->table));
+            $query = EPost::with(['team', 'sender', 'zadal', 'dok_typ', 'reads'])->select(sprintf('%s.*', (new EPost)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -106,8 +107,9 @@ class EPostController extends Controller
         $senders  = Sender::get();
         $inputs   = Input::get();
         $dok_typs = DokTyp::get();
+        $users    = User::get();
 
-        return view('admin.ePosts.index', compact('teams', 'senders', 'inputs', 'dok_typs'));
+        return view('admin.ePosts.index', compact('teams', 'senders', 'inputs', 'dok_typs', 'users'));
     }
 
     public function create()
@@ -122,13 +124,15 @@ class EPostController extends Controller
 
         $dok_typs = DokTyp::pluck('dok_typ_sk', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.ePosts.create', compact('dok_typs', 'senders', 'teams', 'zadals'));
+        $reads = User::pluck('email', 'id');
+
+        return view('admin.ePosts.create', compact('dok_typs', 'reads', 'senders', 'teams', 'zadals'));
     }
 
     public function store(StoreEPostRequest $request)
     {
         $ePost = EPost::create($request->all());
-
+        $ePost->reads()->sync($request->input('reads', []));
         if ($request->input('scan', false)) {
             $ePost->addMedia(storage_path('tmp/uploads/' . basename($request->input('scan'))))->toMediaCollection('scan');
         }
@@ -156,15 +160,17 @@ class EPostController extends Controller
 
         $dok_typs = DokTyp::pluck('dok_typ_sk', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $ePost->load('team', 'sender', 'zadal', 'dok_typ');
+        $reads = User::pluck('email', 'id');
 
-        return view('admin.ePosts.edit', compact('dok_typs', 'ePost', 'senders', 'teams', 'zadals'));
+        $ePost->load('team', 'sender', 'zadal', 'dok_typ', 'reads');
+
+        return view('admin.ePosts.edit', compact('dok_typs', 'ePost', 'reads', 'senders', 'teams', 'zadals'));
     }
 
     public function update(UpdateEPostRequest $request, EPost $ePost)
     {
         $ePost->update($request->all());
-
+        $ePost->reads()->sync($request->input('reads', []));
         if ($request->input('scan', false)) {
             if (! $ePost->scan || $request->input('scan') !== $ePost->scan->file_name) {
                 if ($ePost->scan) {
@@ -197,7 +203,7 @@ class EPostController extends Controller
     {
         abort_if(Gate::denies('e_post_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ePost->load('team', 'sender', 'zadal', 'dok_typ');
+        $ePost->load('team', 'sender', 'zadal', 'dok_typ', 'reads');
 
         return view('admin.ePosts.show', compact('ePost'));
     }

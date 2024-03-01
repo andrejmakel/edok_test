@@ -114,6 +114,16 @@
                                         {{ $call->send_email }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.call.fields.read') }}
+                                    </th>
+                                    <td>
+                                        @foreach($call->reads as $key => $read)
+                                            <span class="label label-info">{{ $read->email }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

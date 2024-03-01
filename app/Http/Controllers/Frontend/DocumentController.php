@@ -11,6 +11,7 @@ use App\Models\Document;
 use App\Models\DokKat;
 use App\Models\DokTyp;
 use App\Models\Team;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -24,7 +25,7 @@ class DocumentController extends Controller
     {
         abort_if(Gate::denies('document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $documents = Document::with(['team', 'dok_typ', 'dok_kat', 'media'])->get();
+        $documents = Document::with(['team', 'dok_typ', 'dok_kat', 'reads', 'media'])->get();
 
         $teams = Team::get();
 
@@ -32,7 +33,9 @@ class DocumentController extends Controller
 
         $dok_kats = DokKat::get();
 
-        return view('frontend.documents.index', compact('documents', 'dok_kats', 'dok_typs', 'teams'));
+        $users = User::get();
+
+        return view('frontend.documents.index', compact('documents', 'dok_kats', 'dok_typs', 'teams', 'users'));
     }
 
     public function create()
@@ -45,13 +48,15 @@ class DocumentController extends Controller
 
         $dok_kats = DokKat::pluck('dok_kat', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.documents.create', compact('dok_kats', 'dok_typs', 'teams'));
+        $reads = User::pluck('email', 'id');
+
+        return view('frontend.documents.create', compact('dok_kats', 'dok_typs', 'reads', 'teams'));
     }
 
     public function store(StoreDocumentRequest $request)
     {
         $document = Document::create($request->all());
-
+        $document->reads()->sync($request->input('reads', []));
         if ($request->input('document', false)) {
             $document->addMedia(storage_path('tmp/uploads/' . basename($request->input('document'))))->toMediaCollection('document');
         }
@@ -73,15 +78,17 @@ class DocumentController extends Controller
 
         $dok_kats = DokKat::pluck('dok_kat', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $document->load('team', 'dok_typ', 'dok_kat');
+        $reads = User::pluck('email', 'id');
 
-        return view('frontend.documents.edit', compact('document', 'dok_kats', 'dok_typs', 'teams'));
+        $document->load('team', 'dok_typ', 'dok_kat', 'reads');
+
+        return view('frontend.documents.edit', compact('document', 'dok_kats', 'dok_typs', 'reads', 'teams'));
     }
 
     public function update(UpdateDocumentRequest $request, Document $document)
     {
         $document->update($request->all());
-
+        $document->reads()->sync($request->input('reads', []));
         if ($request->input('document', false)) {
             if (! $document->document || $request->input('document') !== $document->document->file_name) {
                 if ($document->document) {
@@ -100,7 +107,7 @@ class DocumentController extends Controller
     {
         abort_if(Gate::denies('document_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $document->load('team', 'dok_typ', 'dok_kat');
+        $document->load('team', 'dok_typ', 'dok_kat', 'reads');
 
         return view('frontend.documents.show', compact('document'));
     }

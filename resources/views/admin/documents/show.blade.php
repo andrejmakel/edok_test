@@ -181,6 +181,16 @@
                                         {{ $document->due_date }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.document.fields.read') }}
+                                    </th>
+                                    <td>
+                                        @foreach($document->reads as $key => $read)
+                                            <span class="label label-info">{{ $read->email }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

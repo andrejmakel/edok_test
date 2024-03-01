@@ -47,6 +47,12 @@ class StoreCallRequest extends FormRequest
                 'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
+            'reads.*' => [
+                'integer',
+            ],
+            'reads' => [
+                'array',
+            ],
         ];
     }
 }
