@@ -28,6 +28,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.ucto.fields.acc_company') }}
+                                    </th>
+                                    <td>
+                                        {{ $ucto->acc_company->acc_company ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.ucto.fields.uctuje') }}
                                     </th>
                                     <td>

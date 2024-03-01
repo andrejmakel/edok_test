@@ -32,6 +32,9 @@
                                         {{ trans('cruds.user.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.user.fields.archive') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.user.fields.name') }}
                                     </th>
                                     <th>
@@ -59,6 +62,9 @@
                                         {{ trans('cruds.user.fields.lang') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.user.fields.whats_app') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -71,6 +77,10 @@
                                         </td>
                                         <td>
                                             {{ $user->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $user->archive ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $user->archive ? 'checked' : '' }}>
                                         </td>
                                         <td>
                                             {{ $user->name ?? '' }}
@@ -104,6 +114,10 @@
                                         </td>
                                         <td>
                                             {{ $user->lang->lang ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $user->whats_app ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $user->whats_app ? 'checked' : '' }}>
                                         </td>
                                         <td>
                                             @can('user_show')

@@ -73,7 +73,11 @@ class NasaController extends Controller
 
     public function massDestroy(MassDestroyNasaRequest $request)
     {
-        Nasa::whereIn('id', request('ids'))->delete();
+        $nasas = Nasa::find(request('ids'));
+
+        foreach ($nasas as $nasa) {
+            $nasa->delete();
+        }
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

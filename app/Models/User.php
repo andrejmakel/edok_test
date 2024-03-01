@@ -9,7 +9,6 @@ use Hash;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -19,7 +18,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
 {
-    use SoftDeletes, Notifiable, InteractsWithMedia, HasFactory;
+    use Notifiable, InteractsWithMedia, HasFactory;
 
     public $table = 'users';
 
@@ -36,6 +35,7 @@ class User extends Authenticatable implements HasMedia
     ];
 
     protected $fillable = [
+        'archive',
         'name',
         'greeting',
         'email',
@@ -46,6 +46,7 @@ class User extends Authenticatable implements HasMedia
         'lang_id',
         'remember_token',
         'phone',
+        'whats_app',
         'notice',
         'created_at',
         'updated_at',
@@ -82,6 +83,11 @@ class User extends Authenticatable implements HasMedia
     public function kontaktFirmas()
     {
         return $this->belongsToMany(Firma::class);
+    }
+
+    public function contactTeams()
+    {
+        return $this->belongsToMany(Team::class);
     }
 
     public function getEmailVerifiedAtAttribute($value)

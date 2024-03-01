@@ -14,6 +14,20 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
+                            <label for="acc_company_id">{{ trans('cruds.ucto.fields.acc_company') }}</label>
+                            <select class="form-control select2" name="acc_company_id" id="acc_company_id">
+                                @foreach($acc_companies as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('acc_company_id') ? old('acc_company_id') : $ucto->acc_company->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('acc_company'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('acc_company') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.ucto.fields.acc_company_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label for="uctuje">{{ trans('cruds.ucto.fields.uctuje') }}</label>
                             <input class="form-control" type="text" name="uctuje" id="uctuje" value="{{ old('uctuje', $ucto->uctuje) }}">
                             @if($errors->has('uctuje'))

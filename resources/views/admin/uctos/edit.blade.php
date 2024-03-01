@@ -12,6 +12,18 @@
                     <form method="POST" action="{{ route("admin.uctos.update", [$ucto->id]) }}" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
+                        <div class="form-group {{ $errors->has('acc_company') ? 'has-error' : '' }}">
+                            <label for="acc_company_id">{{ trans('cruds.ucto.fields.acc_company') }}</label>
+                            <select class="form-control select2" name="acc_company_id" id="acc_company_id">
+                                @foreach($acc_companies as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('acc_company_id') ? old('acc_company_id') : $ucto->acc_company->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('acc_company'))
+                                <span class="help-block" role="alert">{{ $errors->first('acc_company') }}</span>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.ucto.fields.acc_company_helper') }}</span>
+                        </div>
                         <div class="form-group {{ $errors->has('uctuje') ? 'has-error' : '' }}">
                             <label for="uctuje">{{ trans('cruds.ucto.fields.uctuje') }}</label>
                             <input class="form-control" type="text" name="uctuje" id="uctuje" value="{{ old('uctuje', $ucto->uctuje) }}">

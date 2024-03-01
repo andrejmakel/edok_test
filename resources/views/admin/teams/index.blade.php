@@ -32,23 +32,223 @@
                                         {{ trans('cruds.team.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.team.fields.active') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.archive') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.team.fields.nazov') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.team.fields.short_name') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.team.fields.activ') }}
+                                        {{ trans('cruds.team.fields.superfaktura') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.nasa') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.id_mmc') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.id_pohoda') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.team.fields.date') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.team.fields.mmc') }}
+                                        {{ trans('cruds.team.fields.contact') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.address') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.sidlo') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.ico') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.dic') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.ic_dph') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.ic_dph_7_a') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.phone') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.e_schranka') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.spracovanie') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.send_address') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.acc_company') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.ucto') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.ucto.fields.tel') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.ucto.fields.email') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.bank') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.iban') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.swift_bic') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.orsr') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.team.fields.zrsr') }}
                                     </th>
                                     <th>
                                         &nbsp;
                                     </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($nasas as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($users as $key => $item)
+                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($sidlos as $key => $item)
+                                                <option value="{{ $item->sidlo }}">{{ $item->sidlo }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($e_schrankas as $key => $item)
+                                                <option value="{{ $item->splnomocnenec }}">{{ $item->splnomocnenec }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($spracovanies as $key => $item)
+                                                <option value="{{ $item->popis }}">{{ $item->popis }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($acc_companies as $key => $item)
+                                                <option value="{{ $item->acc_company }}">{{ $item->acc_company }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($uctos as $key => $item)
+                                                <option value="{{ $item->uctuje }}">{{ $item->uctuje }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        <select class="search">
+                                            <option value>{{ trans('global.all') }}</option>
+                                            @foreach($banks as $key => $item)
+                                                <option value="{{ $item->bank }}">{{ $item->bank }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,20 +261,104 @@
                                             {{ $team->id ?? '' }}
                                         </td>
                                         <td>
+                                            <span style="display:none">{{ $team->active ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $team->active ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $team->archive ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $team->archive ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
                                             {{ $team->nazov ?? '' }}
                                         </td>
                                         <td>
                                             {{ $team->short_name ?? '' }}
                                         </td>
                                         <td>
-                                            <span style="display:none">{{ $team->activ ?? '' }}</span>
-                                            <input type="checkbox" disabled="disabled" {{ $team->activ ? 'checked' : '' }}>
+                                            {{ $team->superfaktura ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->nasa->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->id_mmc ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->id_pohoda ?? '' }}
                                         </td>
                                         <td>
                                             {{ $team->date ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $team->mmc ?? '' }}
+                                            @foreach($team->contacts as $key => $item)
+                                                <span class="label label-info label-many">{{ $item->name }}</span>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            {{ $team->address ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->sidlo->sidlo ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->ico ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->dic ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->ic_dph ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $team->ic_dph_7_a ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $team->ic_dph_7_a ? 'checked' : '' }}>
+                                        </td>
+                                        <td>
+                                            {{ $team->phone ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->e_schranka->splnomocnenec ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->spracovanie->popis ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->send_address ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->acc_company->acc_company ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->ucto->uctuje ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->ucto->tel ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->ucto->email ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->bank->bank ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->iban ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $team->swift_bic ?? '' }}
+                                        </td>
+                                        <td>
+                                            @if($team->orsr)
+                                                <a href="{{ $team->orsr->getUrl() }}" target="_blank">
+                                                    {{ trans('global.view_file') }}
+                                                </a>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($team->zrsr)
+                                                <a href="{{ $team->zrsr->getUrl() }}" target="_blank">
+                                                    {{ trans('global.view_file') }}
+                                                </a>
+                                            @endif
                                         </td>
                                         <td>
                                             @can('team_show')
@@ -159,6 +443,27 @@
           .columns.adjust();
   });
   
+let visibleColumnsIndexes = null;
+$('.datatable thead').on('input', '.search', function () {
+      let strict = $(this).attr('strict') || false
+      let value = strict && this.value ? "^" + this.value + "$" : this.value
+
+      let index = $(this).parent().index()
+      if (visibleColumnsIndexes !== null) {
+        index = visibleColumnsIndexes[index]
+      }
+
+      table
+        .column(index)
+        .search(value, strict)
+        .draw()
+  });
+table.on('column-visibility.dt', function(e, settings, column, state) {
+      visibleColumnsIndexes = []
+      table.columns(":visible").every(function(colIdx) {
+          visibleColumnsIndexes.push(colIdx);
+      });
+  })
 })
 
 </script>
