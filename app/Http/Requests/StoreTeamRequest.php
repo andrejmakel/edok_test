@@ -25,11 +25,59 @@ class StoreTeamRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'superfaktura' => [
+                'string',
+                'nullable',
+            ],
+            'id_mmc' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+            'id_pohoda' => [
+                'string',
+                'nullable',
+            ],
             'date' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
-            'mmc' => [
+            'contacts.*' => [
+                'integer',
+            ],
+            'contacts' => [
+                'array',
+            ],
+            'address' => [
+                'string',
+                'nullable',
+            ],
+            'ico' => [
+                'string',
+                'nullable',
+            ],
+            'dic' => [
+                'string',
+                'nullable',
+            ],
+            'ic_dph' => [
+                'string',
+                'nullable',
+            ],
+            'phone' => [
+                'string',
+                'nullable',
+            ],
+            'send_address' => [
+                'string',
+                'nullable',
+            ],
+            'iban' => [
+                'string',
+                'nullable',
+            ],
+            'swift_bic' => [
                 'string',
                 'nullable',
             ],

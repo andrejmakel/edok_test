@@ -202,6 +202,16 @@
                                         {{ $ePost->send_email }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.ePost.fields.read') }}
+                                    </th>
+                                    <td>
+                                        @foreach($ePost->reads as $key => $read)
+                                            <span class="label label-info">{{ $read->email }}</span>
+                                        @endforeach
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">

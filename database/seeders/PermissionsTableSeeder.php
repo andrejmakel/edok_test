@@ -744,6 +744,46 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 184,
+                'title' => 'sidlo_create',
+            ],
+            [
+                'id'    => 185,
+                'title' => 'sidlo_edit',
+            ],
+            [
+                'id'    => 186,
+                'title' => 'sidlo_show',
+            ],
+            [
+                'id'    => 187,
+                'title' => 'sidlo_delete',
+            ],
+            [
+                'id'    => 188,
+                'title' => 'sidlo_access',
+            ],
+            [
+                'id'    => 189,
+                'title' => 'acc_company_create',
+            ],
+            [
+                'id'    => 190,
+                'title' => 'acc_company_edit',
+            ],
+            [
+                'id'    => 191,
+                'title' => 'acc_company_show',
+            ],
+            [
+                'id'    => 192,
+                'title' => 'acc_company_delete',
+            ],
+            [
+                'id'    => 193,
+                'title' => 'acc_company_access',
+            ],
+            [
+                'id'    => 194,
                 'title' => 'profile_password_edit',
             ],
         ];

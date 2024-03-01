@@ -181,6 +181,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Teams
     Route::delete('teams/destroy', 'TeamsController@massDestroy')->name('teams.massDestroy');
+    Route::post('teams/media', 'TeamsController@storeMedia')->name('teams.storeMedia');
+    Route::post('teams/ckmedia', 'TeamsController@storeCKEditorImages')->name('teams.storeCKEditorImages');
     Route::post('teams/parse-csv-import', 'TeamsController@parseCsvImport')->name('teams.parseCsvImport');
     Route::post('teams/process-csv-import', 'TeamsController@processCsvImport')->name('teams.processCsvImport');
     Route::resource('teams', 'TeamsController');
@@ -218,6 +220,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Lang
     Route::delete('langs/destroy', 'LangController@massDestroy')->name('langs.massDestroy');
     Route::resource('langs', 'LangController');
+
+    // Sidlo
+    Route::delete('sidlos/destroy', 'SidloController@massDestroy')->name('sidlos.massDestroy');
+    Route::post('sidlos/parse-csv-import', 'SidloController@parseCsvImport')->name('sidlos.parseCsvImport');
+    Route::post('sidlos/process-csv-import', 'SidloController@processCsvImport')->name('sidlos.processCsvImport');
+    Route::resource('sidlos', 'SidloController');
+
+    // Acc Company
+    Route::delete('acc-companies/destroy', 'AccCompanyController@massDestroy')->name('acc-companies.massDestroy');
+    Route::post('acc-companies/parse-csv-import', 'AccCompanyController@parseCsvImport')->name('acc-companies.parseCsvImport');
+    Route::post('acc-companies/process-csv-import', 'AccCompanyController@processCsvImport')->name('acc-companies.processCsvImport');
+    Route::resource('acc-companies', 'AccCompanyController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -365,6 +379,8 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
 
     // Teams
     Route::delete('teams/destroy', 'TeamsController@massDestroy')->name('teams.massDestroy');
+    Route::post('teams/media', 'TeamsController@storeMedia')->name('teams.storeMedia');
+    Route::post('teams/ckmedia', 'TeamsController@storeCKEditorImages')->name('teams.storeCKEditorImages');
     Route::resource('teams', 'TeamsController');
 
     // Typ
@@ -392,6 +408,14 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Lang
     Route::delete('langs/destroy', 'LangController@massDestroy')->name('langs.massDestroy');
     Route::resource('langs', 'LangController');
+
+    // Sidlo
+    Route::delete('sidlos/destroy', 'SidloController@massDestroy')->name('sidlos.massDestroy');
+    Route::resource('sidlos', 'SidloController');
+
+    // Acc Company
+    Route::delete('acc-companies/destroy', 'AccCompanyController@massDestroy')->name('acc-companies.massDestroy');
+    Route::resource('acc-companies', 'AccCompanyController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');
