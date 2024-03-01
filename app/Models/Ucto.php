@@ -22,6 +22,7 @@ class Ucto extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'acc_company_id',
         'uctuje',
         'tel',
         'mobil',
@@ -41,5 +42,10 @@ class Ucto extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function acc_company()
+    {
+        return $this->belongsTo(AccCompany::class, 'acc_company_id');
     }
 }
