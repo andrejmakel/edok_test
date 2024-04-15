@@ -529,6 +529,8 @@ return [
             'send_email_helper'      => ' ',
             'accounting_date'        => 'Accounting Date',
             'accounting_date_helper' => ' ',
+            'paid'                   => 'Paid',
+            'paid_helper'            => ' ',
         ],
     ],
     'carProperty' => [

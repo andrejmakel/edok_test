@@ -75,6 +75,9 @@
                                         {{ trans('cruds.invoice.fields.send_email') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.invoice.fields.paid') }}
+                                    </th>
+                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -123,6 +126,8 @@
                                     </td>
                                     <td>
                                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                    </td>
+                                    <td>
                                     </td>
                                     <td>
                                     </td>
@@ -193,6 +198,10 @@
                                         </td>
                                         <td>
                                             {{ $invoice->send_email ?? '' }}
+                                        </td>
+                                        <td>
+                                            <span style="display:none">{{ $invoice->paid ?? '' }}</span>
+                                            <input type="checkbox" disabled="disabled" {{ $invoice->paid ? 'checked' : '' }}>
                                         </td>
                                         <td>
                                             @can('invoice_show')

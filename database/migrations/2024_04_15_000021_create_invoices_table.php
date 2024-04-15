@@ -19,6 +19,7 @@ class CreateInvoicesTable extends Migration
             $table->date('pay_date')->nullable();
             $table->date('accounting_date')->nullable();
             $table->date('send_email')->nullable();
+            $table->boolean('paid')->default(0)->nullable();
             $table->timestamps();
         });
     }

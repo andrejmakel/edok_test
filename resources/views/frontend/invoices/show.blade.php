@@ -134,6 +134,14 @@
                                         {{ $invoice->send_email }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.invoice.fields.paid') }}
+                                    </th>
+                                    <td>
+                                        <input type="checkbox" disabled="disabled" {{ $invoice->paid ? 'checked' : '' }}>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="form-group">
