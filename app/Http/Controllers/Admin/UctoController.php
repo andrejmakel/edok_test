@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyUctoRequest;
 use App\Http\Requests\StoreUctoRequest;
 use App\Http\Requests\UpdateUctoRequest;
+use App\Models\AccCompany;
 use App\Models\Ucto;
 use Gate;
 use Illuminate\Http\Request;
@@ -22,16 +23,20 @@ class UctoController extends Controller
     {
         abort_if(Gate::denies('ucto_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $uctos = Ucto::all();
+        $uctos = Ucto::with(['acc_company'])->get();
 
-        return view('admin.uctos.index', compact('uctos'));
+        $acc_companies = AccCompany::get();
+
+        return view('admin.uctos.index', compact('acc_companies', 'uctos'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('ucto_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.uctos.create');
+        $acc_companies = AccCompany::pluck('acc_company', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.uctos.create', compact('acc_companies'));
     }
 
     public function store(StoreUctoRequest $request)
@@ -49,7 +54,11 @@ class UctoController extends Controller
     {
         abort_if(Gate::denies('ucto_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.uctos.edit', compact('ucto'));
+        $acc_companies = AccCompany::pluck('acc_company', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $ucto->load('acc_company');
+
+        return view('admin.uctos.edit', compact('acc_companies', 'ucto'));
     }
 
     public function update(UpdateUctoRequest $request, Ucto $ucto)
@@ -62,6 +71,8 @@ class UctoController extends Controller
     public function show(Ucto $ucto)
     {
         abort_if(Gate::denies('ucto_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $ucto->load('acc_company');
 
         return view('admin.uctos.show', compact('ucto'));
     }

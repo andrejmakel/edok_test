@@ -98,13 +98,8 @@
                                         </a>
                                     @endcan
                                     @can('team_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.teams.index') }}">
+                                        <a class="dropdown-item" href="{{ route('frontend.teams.index') }}">
                                             {{ trans('cruds.team.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('firma_access')
-                                        <a class="dropdown-item" href="{{ route('frontend.firmas.index') }}">
-                                            {{ trans('cruds.firma.title') }}
                                         </a>
                                     @endcan
                                     @can('sender_access')
@@ -272,19 +267,29 @@
                                             {{ trans('cruds.spracovany.title') }}
                                         </a>
                                     @endcan
+                                    @can('acc_company_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.acc-companies.index') }}">
+                                            {{ trans('cruds.accCompany.title') }}
+                                        </a>
+                                    @endcan
                                     @can('ucto_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.uctos.index') }}">
                                             {{ trans('cruds.ucto.title') }}
                                         </a>
                                     @endcan
-                                    @can('bank_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.banks.index') }}">
-                                            {{ trans('cruds.bank.title') }}
-                                        </a>
-                                    @endcan
                                     @can('e_schranka_access')
                                         <a class="dropdown-item ml-3" href="{{ route('frontend.e-schrankas.index') }}">
                                             {{ trans('cruds.eSchranka.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('sidlo_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.sidlos.index') }}">
+                                            {{ trans('cruds.sidlo.title') }}
+                                        </a>
+                                    @endcan
+                                    @can('bank_access')
+                                        <a class="dropdown-item ml-3" href="{{ route('frontend.banks.index') }}">
+                                            {{ trans('cruds.bank.title') }}
                                         </a>
                                     @endcan
                                     @can('lang_access')

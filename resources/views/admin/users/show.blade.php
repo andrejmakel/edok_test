@@ -27,6 +27,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.user.fields.archive') }}
+                                    </th>
+                                    <td>
+                                        <input type="checkbox" disabled="disabled" {{ $user->archive ? 'checked' : '' }}>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.user.fields.name') }}
                                     </th>
                                     <td>
@@ -119,6 +127,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.user.fields.whats_app') }}
+                                    </th>
+                                    <td>
+                                        <input type="checkbox" disabled="disabled" {{ $user->whats_app ? 'checked' : '' }}>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.user.fields.notice') }}
                                     </th>
                                     <td>
@@ -142,14 +158,14 @@
                 </div>
                 <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
                     <li role="presentation">
-                        <a href="#kontakt_firmas" aria-controls="kontakt_firmas" role="tab" data-toggle="tab">
-                            {{ trans('cruds.firma.title') }}
+                        <a href="#contact_teams" aria-controls="contact_teams" role="tab" data-toggle="tab">
+                            {{ trans('cruds.team.title') }}
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane" role="tabpanel" id="kontakt_firmas">
-                        @includeIf('admin.users.relationships.kontaktFirmas', ['firmas' => $user->kontaktFirmas])
+                    <div class="tab-pane" role="tabpanel" id="contact_teams">
+                        @includeIf('admin.users.relationships.contactTeams', ['teams' => $user->contactTeams])
                     </div>
                 </div>
             </div>
