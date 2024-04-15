@@ -312,438 +312,458 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 76,
-                'title' => 'firma_create',
-            ],
-            [
-                'id'    => 77,
-                'title' => 'firma_edit',
-            ],
-            [
-                'id'    => 78,
-                'title' => 'firma_show',
-            ],
-            [
-                'id'    => 79,
-                'title' => 'firma_delete',
-            ],
-            [
-                'id'    => 80,
-                'title' => 'firma_access',
-            ],
-            [
-                'id'    => 81,
                 'title' => 'post_create',
             ],
             [
-                'id'    => 82,
+                'id'    => 77,
                 'title' => 'post_edit',
             ],
             [
-                'id'    => 83,
+                'id'    => 78,
                 'title' => 'post_show',
             ],
             [
-                'id'    => 84,
+                'id'    => 79,
                 'title' => 'post_delete',
             ],
             [
-                'id'    => 85,
+                'id'    => 80,
                 'title' => 'post_access',
             ],
             [
-                'id'    => 86,
+                'id'    => 81,
                 'title' => 'notice_create',
             ],
             [
-                'id'    => 87,
+                'id'    => 82,
                 'title' => 'notice_edit',
             ],
             [
-                'id'    => 88,
+                'id'    => 83,
                 'title' => 'notice_show',
             ],
             [
-                'id'    => 89,
+                'id'    => 84,
                 'title' => 'notice_delete',
             ],
             [
-                'id'    => 90,
+                'id'    => 85,
                 'title' => 'notice_access',
             ],
             [
-                'id'    => 91,
+                'id'    => 86,
                 'title' => 'call_property_access',
             ],
             [
-                'id'    => 92,
+                'id'    => 87,
                 'title' => 'call_typ_create',
             ],
             [
-                'id'    => 93,
+                'id'    => 88,
                 'title' => 'call_typ_edit',
             ],
             [
-                'id'    => 94,
+                'id'    => 89,
                 'title' => 'call_typ_show',
             ],
             [
-                'id'    => 95,
+                'id'    => 90,
                 'title' => 'call_typ_delete',
             ],
             [
-                'id'    => 96,
+                'id'    => 91,
                 'title' => 'call_typ_access',
             ],
             [
-                'id'    => 97,
+                'id'    => 92,
                 'title' => 'call_create',
             ],
             [
-                'id'    => 98,
+                'id'    => 93,
                 'title' => 'call_edit',
             ],
             [
-                'id'    => 99,
+                'id'    => 94,
                 'title' => 'call_show',
             ],
             [
-                'id'    => 100,
+                'id'    => 95,
                 'title' => 'call_delete',
             ],
             [
-                'id'    => 101,
+                'id'    => 96,
                 'title' => 'call_access',
             ],
             [
-                'id'    => 102,
+                'id'    => 97,
                 'title' => 'invoice_typ_create',
             ],
             [
-                'id'    => 103,
+                'id'    => 98,
                 'title' => 'invoice_typ_edit',
             ],
             [
-                'id'    => 104,
+                'id'    => 99,
                 'title' => 'invoice_typ_show',
             ],
             [
-                'id'    => 105,
+                'id'    => 100,
                 'title' => 'invoice_typ_delete',
             ],
             [
-                'id'    => 106,
+                'id'    => 101,
                 'title' => 'invoice_typ_access',
             ],
             [
-                'id'    => 107,
+                'id'    => 102,
                 'title' => 'invoice_create',
             ],
             [
-                'id'    => 108,
+                'id'    => 103,
                 'title' => 'invoice_edit',
             ],
             [
-                'id'    => 109,
+                'id'    => 104,
                 'title' => 'invoice_show',
             ],
             [
-                'id'    => 110,
+                'id'    => 105,
                 'title' => 'invoice_delete',
             ],
             [
-                'id'    => 111,
+                'id'    => 106,
                 'title' => 'invoice_access',
             ],
             [
-                'id'    => 112,
+                'id'    => 107,
                 'title' => 'car_property_access',
             ],
             [
-                'id'    => 113,
+                'id'    => 108,
                 'title' => 'insurance_create',
             ],
             [
-                'id'    => 114,
+                'id'    => 109,
                 'title' => 'insurance_edit',
             ],
             [
-                'id'    => 115,
+                'id'    => 110,
                 'title' => 'insurance_show',
             ],
             [
-                'id'    => 116,
+                'id'    => 111,
                 'title' => 'insurance_delete',
             ],
             [
-                'id'    => 117,
+                'id'    => 112,
                 'title' => 'insurance_access',
             ],
             [
-                'id'    => 118,
+                'id'    => 113,
                 'title' => 'car_create',
             ],
             [
-                'id'    => 119,
+                'id'    => 114,
                 'title' => 'car_edit',
             ],
             [
-                'id'    => 120,
+                'id'    => 115,
                 'title' => 'car_show',
             ],
             [
-                'id'    => 121,
+                'id'    => 116,
                 'title' => 'car_delete',
             ],
             [
-                'id'    => 122,
+                'id'    => 117,
                 'title' => 'car_access',
             ],
             [
-                'id'    => 123,
+                'id'    => 118,
                 'title' => 'recipient_create',
             ],
             [
-                'id'    => 124,
+                'id'    => 119,
                 'title' => 'recipient_edit',
             ],
             [
-                'id'    => 125,
+                'id'    => 120,
                 'title' => 'recipient_show',
             ],
             [
-                'id'    => 126,
+                'id'    => 121,
                 'title' => 'recipient_delete',
             ],
             [
-                'id'    => 127,
+                'id'    => 122,
                 'title' => 'recipient_access',
             ],
             [
-                'id'    => 128,
+                'id'    => 123,
                 'title' => 'outgoing_post_create',
             ],
             [
-                'id'    => 129,
+                'id'    => 124,
                 'title' => 'outgoing_post_edit',
             ],
             [
-                'id'    => 130,
+                'id'    => 125,
                 'title' => 'outgoing_post_show',
             ],
             [
-                'id'    => 131,
+                'id'    => 126,
                 'title' => 'outgoing_post_delete',
             ],
             [
-                'id'    => 132,
+                'id'    => 127,
                 'title' => 'outgoing_post_access',
             ],
             [
-                'id'    => 133,
+                'id'    => 128,
                 'title' => 'doc_property_access',
             ],
             [
-                'id'    => 134,
+                'id'    => 129,
                 'title' => 'document_create',
             ],
             [
-                'id'    => 135,
+                'id'    => 130,
                 'title' => 'document_edit',
             ],
             [
-                'id'    => 136,
+                'id'    => 131,
                 'title' => 'document_show',
             ],
             [
-                'id'    => 137,
+                'id'    => 132,
                 'title' => 'document_delete',
             ],
             [
-                'id'    => 138,
+                'id'    => 133,
                 'title' => 'document_access',
             ],
             [
-                'id'    => 139,
+                'id'    => 134,
                 'title' => 'upload_create',
             ],
             [
-                'id'    => 140,
+                'id'    => 135,
                 'title' => 'upload_edit',
             ],
             [
-                'id'    => 141,
+                'id'    => 136,
                 'title' => 'upload_show',
             ],
             [
-                'id'    => 142,
+                'id'    => 137,
                 'title' => 'upload_delete',
             ],
             [
-                'id'    => 143,
+                'id'    => 138,
                 'title' => 'upload_access',
             ],
             [
-                'id'    => 144,
+                'id'    => 139,
                 'title' => 'bank_create',
             ],
             [
-                'id'    => 145,
+                'id'    => 140,
                 'title' => 'bank_edit',
             ],
             [
-                'id'    => 146,
+                'id'    => 141,
                 'title' => 'bank_show',
             ],
             [
-                'id'    => 147,
+                'id'    => 142,
                 'title' => 'bank_delete',
             ],
             [
-                'id'    => 148,
+                'id'    => 143,
                 'title' => 'bank_access',
             ],
             [
-                'id'    => 149,
+                'id'    => 144,
                 'title' => 'team_create',
             ],
             [
-                'id'    => 150,
+                'id'    => 145,
                 'title' => 'team_edit',
             ],
             [
-                'id'    => 151,
+                'id'    => 146,
                 'title' => 'team_show',
             ],
             [
-                'id'    => 152,
+                'id'    => 147,
                 'title' => 'team_delete',
             ],
             [
-                'id'    => 153,
+                'id'    => 148,
                 'title' => 'team_access',
             ],
             [
-                'id'    => 154,
+                'id'    => 149,
                 'title' => 'typ_create',
             ],
             [
-                'id'    => 155,
+                'id'    => 150,
                 'title' => 'typ_edit',
             ],
             [
-                'id'    => 156,
+                'id'    => 151,
                 'title' => 'typ_show',
             ],
             [
-                'id'    => 157,
+                'id'    => 152,
                 'title' => 'typ_delete',
             ],
             [
-                'id'    => 158,
+                'id'    => 153,
                 'title' => 'typ_access',
             ],
             [
-                'id'    => 159,
+                'id'    => 154,
                 'title' => 'znacka_create',
             ],
             [
-                'id'    => 160,
+                'id'    => 155,
                 'title' => 'znacka_edit',
             ],
             [
-                'id'    => 161,
+                'id'    => 156,
                 'title' => 'znacka_show',
             ],
             [
-                'id'    => 162,
+                'id'    => 157,
                 'title' => 'znacka_delete',
             ],
             [
-                'id'    => 163,
+                'id'    => 158,
                 'title' => 'znacka_access',
             ],
             [
-                'id'    => 164,
+                'id'    => 159,
                 'title' => 'e_post_create',
             ],
             [
-                'id'    => 165,
+                'id'    => 160,
                 'title' => 'e_post_edit',
             ],
             [
-                'id'    => 166,
+                'id'    => 161,
                 'title' => 'e_post_show',
             ],
             [
-                'id'    => 167,
+                'id'    => 162,
                 'title' => 'e_post_delete',
             ],
             [
-                'id'    => 168,
+                'id'    => 163,
                 'title' => 'e_post_access',
             ],
             [
-                'id'    => 169,
+                'id'    => 164,
                 'title' => 'dok_typ_create',
             ],
             [
-                'id'    => 170,
+                'id'    => 165,
                 'title' => 'dok_typ_edit',
             ],
             [
-                'id'    => 171,
+                'id'    => 166,
                 'title' => 'dok_typ_show',
             ],
             [
-                'id'    => 172,
+                'id'    => 167,
                 'title' => 'dok_typ_delete',
             ],
             [
-                'id'    => 173,
+                'id'    => 168,
                 'title' => 'dok_typ_access',
             ],
             [
-                'id'    => 174,
+                'id'    => 169,
                 'title' => 'dok_kat_create',
             ],
             [
-                'id'    => 175,
+                'id'    => 170,
                 'title' => 'dok_kat_edit',
             ],
             [
-                'id'    => 176,
+                'id'    => 171,
                 'title' => 'dok_kat_show',
             ],
             [
-                'id'    => 177,
+                'id'    => 172,
                 'title' => 'dok_kat_delete',
             ],
             [
-                'id'    => 178,
+                'id'    => 173,
                 'title' => 'dok_kat_access',
             ],
             [
-                'id'    => 179,
+                'id'    => 174,
                 'title' => 'lang_create',
             ],
             [
-                'id'    => 180,
+                'id'    => 175,
                 'title' => 'lang_edit',
             ],
             [
-                'id'    => 181,
+                'id'    => 176,
                 'title' => 'lang_show',
             ],
             [
-                'id'    => 182,
+                'id'    => 177,
                 'title' => 'lang_delete',
             ],
             [
-                'id'    => 183,
+                'id'    => 178,
                 'title' => 'lang_access',
             ],
             [
+                'id'    => 179,
+                'title' => 'sidlo_create',
+            ],
+            [
+                'id'    => 180,
+                'title' => 'sidlo_edit',
+            ],
+            [
+                'id'    => 181,
+                'title' => 'sidlo_show',
+            ],
+            [
+                'id'    => 182,
+                'title' => 'sidlo_delete',
+            ],
+            [
+                'id'    => 183,
+                'title' => 'sidlo_access',
+            ],
+            [
                 'id'    => 184,
+                'title' => 'acc_company_create',
+            ],
+            [
+                'id'    => 185,
+                'title' => 'acc_company_edit',
+            ],
+            [
+                'id'    => 186,
+                'title' => 'acc_company_show',
+            ],
+            [
+                'id'    => 187,
+                'title' => 'acc_company_delete',
+            ],
+            [
+                'id'    => 188,
+                'title' => 'acc_company_access',
+            ],
+            [
+                'id'    => 189,
                 'title' => 'profile_password_edit',
             ],
         ];

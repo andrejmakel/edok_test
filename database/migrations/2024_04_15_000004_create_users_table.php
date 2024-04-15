@@ -10,6 +10,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->boolean('archive')->default(0)->nullable();
             $table->string('name')->nullable();
             $table->string('greeting')->nullable();
             $table->string('email')->nullable()->unique();
@@ -19,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->boolean('approved')->default(0)->nullable();
             $table->string('remember_token')->nullable();
             $table->string('phone')->nullable();
+            $table->boolean('whats_app')->default(0)->nullable();
             $table->longText('notice')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 }
