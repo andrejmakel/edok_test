@@ -76,6 +76,9 @@
                                     {{ trans('cruds.invoice.fields.send_email') }}
                                 </th>
                                 <th>
+                                    {{ trans('cruds.invoice.fields.paid') }}
+                                </th>
+                                <th>
                                     &nbsp;
                                 </th>
                             </tr>
@@ -124,6 +127,8 @@
                                 </td>
                                 <td>
                                     <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                                </td>
+                                <td>
                                 </td>
                                 <td>
                                 </td>
@@ -209,6 +214,7 @@
 { data: 'pay_date', name: 'pay_date' },
 { data: 'accounting_date', name: 'accounting_date' },
 { data: 'send_email', name: 'send_email' },
+{ data: 'paid', name: 'paid' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

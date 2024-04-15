@@ -44,6 +44,7 @@ class Invoice extends Model implements HasMedia
         'pay_date',
         'accounting_date',
         'send_email',
+        'paid',
         'created_at',
         'updated_at',
         'deleted_at',

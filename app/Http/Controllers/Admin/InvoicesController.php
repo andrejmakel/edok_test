@@ -87,7 +87,11 @@ class InvoicesController extends Controller
                 return $row->file ? '<a href="' . $row->file->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'team', 'visible', 'nasa', 'typ', 'file']);
+            $table->editColumn('paid', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->paid ? 'checked' : null) . '>';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'team', 'visible', 'nasa', 'typ', 'file', 'paid']);
 
             return $table->make(true);
         }
